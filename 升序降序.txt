@@ -1,0 +1,16 @@
+const compare = (data, propertyName, tp) => {
+  if ((typeof data[0][propertyName]) != "number") {
+    return function (object1, object2) {
+      var value1 = object1[propertyName];
+      var value2 = object2[propertyName];
+      return tp = 1 ? value1.localeCompare(value2) : value2.localeCompare(value1);
+    }
+  }
+  else {
+    return (object1, object2) => { // 属性值为数字  
+      var value1 = object1[propertyName];
+      var value2 = object2[propertyName];
+      return tp = 1 ? value1 - value2 : value2 - value1;
+    }
+  }
+}

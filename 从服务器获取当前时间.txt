@@ -1,0 +1,3 @@
+    function getServerDate(){
+        return new Date($.ajax({async: false}).getResponseHeader("Date"));
+    }

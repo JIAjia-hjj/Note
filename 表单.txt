@@ -1,0 +1,13 @@
+给radio设值：$("input[name='neme'][value='value']").prop("checked", "checked");
+radio值的获取：$("input[name='name']:checked").val()
+给checkbox设值：$("input[name='neme'][value='value']").prop("checked", "checked");
+checkbox值的获取：$('input[name="name"]:checked').val();
+checkbox全选：  $(":checkbox").prop("checked",true);
+判断是否选中: $('input[type="checkbox"]').is(':checked')
+给selectshe设值：$('select[name="name"]').find("option[text|value|index='值']").prop("selected",true);
+                          $("#sel").attr("value",'-sel3');//设置value=-sel3的项目为当前选中项 
+selectshe删除：$('select[name="name"] option[index="0"]').remove(); //删除Select中索引值为0的Option(第一个)
+                        $('select[name="name"]  option[value="3"]').remove(); //删除Select中Value='3'的Optiona
+                        $('select[name="name"]  option[text="4"]').remove(); //删除Select中Text='4'的Optiona
+selectshe值的获取：    获取text值   $('select[name="name"]').find("option:selected").text()
+                                  获取value   $('select[name="name"]').val()

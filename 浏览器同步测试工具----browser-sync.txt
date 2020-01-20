@@ -1,0 +1,15 @@
+1. 安装 BrowserSync（必须有node.js）
+     npm install --save-dev browser-sync
+  （有--save-dev 说明不是必须的依赖包，npm install --production    安装一定要有的依赖包 即dependencies的包）
+2.在package.json文件下配置scripts
+     "scripts":{
+         "dev":"browser-sync start --server --files \"*.html, css/*.css,js/*.js\"",
+          "start":"npm run dev"
+      }
+    （实时监测html css js 的变化）
+3.启动开发服务
+       npm start 或 npm run dev
+
+
+中文官网
+http://www.browsersync.cn/#install

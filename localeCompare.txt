@@ -1,0 +1,7 @@
+var str = "张三";
+// 张三(zhangsan)在李四(lisi)之后
+document.writeln( str.localeCompare("李四") ); // 1
+
+str = "ABC";
+// ABC在DEF之前
+document.writeln( str.localeCompare("DEF") ); // -1

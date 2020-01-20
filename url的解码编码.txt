@@ -1,0 +1,8 @@
+对exurl进行编码(转义)：
+encodeURI(http://wechat.xxfgo.com/v1/message/key?keyword=喜);---------保留字符都有特殊意义
+encodeURIComponent(http://wechat.xxfgo.com/v1/message/key?keyword=喜);--------------------------url的整体进行了编码
+
+
+对编码之后的exurl进行解码(反转义)：
+decodeURI(http://wechat.xxfgo_dev.com/v1/message/key?%25E6%25B5%258B%25E8%25AF%2595)；---------保留字符都有特殊意义
+decodeURIComponent(http://wechat.xxfgo_dev.com/v1/message/key?%25E6%25B5%258B%25E8%25AF%2595);-----------------------url的整体进行了解码

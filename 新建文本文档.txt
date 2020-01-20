@@ -1,0 +1,39 @@
+npm配置国内镜像资源+淘宝镜像
+https://blog.csdn.net/qq_39207948/article/details/79449633
+Sublime Text 3安装及常用插件安装
+https://blog.csdn.net/wxl1555/article/details/69941451/
+sass中文网
+https://www.sass.hk/guide/
+vue2.0新手填坑攻略之使用vue-cli搭建vue项目开发环境到项目发布
+https://blog.csdn.net/u010020858/article/details/72865101
+https://github.com/vuejs/vue-cli/tree/v2#vue-cli--
+微信小程序实例源码大全下载
+https://www.cnblogs.com/tuyile006/p/6268961.html
+小程序学习——打开已有的项目
+https://blog.csdn.net/zr15829039341/article/details/79877978
+利用@media screen实现网页布局的自适应
+https://blog.csdn.net/inuyasha1121/article/details/50777116
+
+委托
+https://www.cnblogs.com/liugang-vip/p/5616484.html
+art-template
+https://www.cnblogs.com/shiyou00/p/6841801.html
+
+
+vue-devtools使用
+https://www.cnblogs.com/yuqing6/p/7440549.html
+https://github.com/vuejs/vue-devtools#vue-devtools
+
+
+
+BFC:
+https://www.zhangxinxu.com/wordpress/2015/02/css-deep-understand-flow-bfc-column-two-auto-layout/
+
+apache:https://www.cnblogs.com/wcwnina/p/8044353.html
+
+
+
+webstorm 2019 激活破解方法大全：
+https://blog.csdn.net/qq_36135335/article/details/85095622
+获取注册码：
+http://idea.lanyus.com/

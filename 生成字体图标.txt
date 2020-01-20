@@ -1,0 +1,7 @@
+生成字体图标
+教程：https://www.cnblogs.com/ranyonsue/p/8609030.html
+
+
+xd生成svg图------ctrl+e
+svg生成字体图标----https://jingyan.baidu.com/article/ea24bc39ddff7bda62b331b0.html
+使用：看教程

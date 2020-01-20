@@ -1,0 +1,16 @@
+hosts£ºC:\Windows\System32\drivers\etc\hosts
+127.0.0.1       frontend.xxfgo_dev.com
+
+
+
+
+httpd-vhosta.conf£ºD:\wampserver\wamp\bin\apache\apache2.4.9\conf\extra
+
+<VirtualHost *:80>
+    ServerAdmin webmaster@dummy-host.example.com
+    DocumentRoot "E:/web/office/xxfgo/frontend/web"    //ÎÄ¼þÂ·¾¶
+    ServerName frontend.xxfgo_dev.com
+    ServerAlias www.dummy-host.example.com
+    ErrorLog "logs/dummy-host.example.com-error.log"
+    CustomLog "logs/dummy-host.example.com-access.log" common
+</VirtualHost>

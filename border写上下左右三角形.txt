@@ -1,0 +1,3 @@
+border: 12rpx solid transparent;
+
+border-top-color: #e6e6e6;

@@ -1,0 +1,64 @@
+<button onclick="copyText()">点击此处复制</button>
+<!-- 注意这样虽然看不见input,但是其仍然站着位置 -->
+<input id="copyInput" value='复制的文本' style="opacity: 0;height: 0;width: 1px" readonly />
+<!-- 不占位置的隐藏方式  -->
+<!--<input id="copyInput" value='复制的文本2' style=" position: fixed;width: 5px;top: -6px;height: 6px;" readonly />-->
+
+function copyText() {
+        $('#copyInput')[0].select(); // 选择对象
+        document.execCommand("Copy"); // 执行浏览器复制命令
+        alert('已复制文本');
+ }
+
+
+=================================================================
+<div class="copy-pp" id="copy-pp">
+    即使是一块牛肉，也应该有自己的态度，要慎其独，要善其身，要知道精彩的人生不能只有精肉，
+    还要有适宜的肥油做调配，有雪白的肉筋做环绕，并且还要掌握跳进煎锅时的角度，姿势，以及火候，
+    才能最终成为一块优秀道地的西冷牛排~
+</div>
+
+<button type="button" class="copy-btn" id="copy-btn" onclick="jsCopy(this)">点击复制分享链接</button>
+<textarea class="copy-text" id="copy-text" value="" readonly="readonly"></textarea>
+
+<script>
+    function jsCopy(obj){
+        var u = navigator.userAgent;
+        //苹果
+        if (u.match(/(iPhone|iPod|iPad);?/i)) {
+            var copyDOM = document.getElementById("copy-pp");  //要复制文字的节点
+            var range = document.createRange();
+            // 选中需要复制的节点
+            range.selectNode(copyDOM);
+            // 执行选中元素
+            window.getSelection().addRange(range);
+            // 执行 copy 操作
+            var successful = document.execCommand('copy');
+            try {
+                var msg = successful ? '成功' : '失败';
+                console.log(msg);
+            } catch(err) {
+                console.log(err);
+            }
+            // 移除选中的元素
+            window.getSelection().removeAllRanges();
+            obj.innerHTML = '已复制';
+        }
+
+        // 安卓
+        if(u.indexOf('Android') > -1 ){
+            var $copyText = document.getElementById("copy-text"),
+                $copyPP = document.getElementById("copy-pp");
+            $copyText.innerHTML = $copyPP.innerHTML.replace(/<[^>]+>/g,"");
+            $copyText.select(); // 选择对象
+            document.execCommand("Copy"); // 执行浏览器复制命令
+            obj.innerHTML = '已复制';
+        }
+        // 安卓系统的UC浏览器
+        if(u.indexOf('Android') > -1 && u.indexOf('UCBrowser') > -1){
+            obj.innerHTML = '点击复制分享链接';
+            alert('若点击复制分享链接无效，请长按内容手动复制！');
+        }
+    }
+</script>
+

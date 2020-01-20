@@ -1,0 +1,183 @@
+<!--<link rel="stylesheet" href="../layui/css/layui.css">-->
+<!--<script src="../layui/layui.js"></script>-->
+<!--<link rel="stylesheet" href="../layui/css/layui.css">-->
+<!--<script src="../layui/layui.js"></script>-->
+<!DOCTYPE html>
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <!--<script src="~/Scripts/json2.js"></script>-->
+    <!--<script src="/Scripts/bootstrap-3.2.0-dist/js/bootstrap.min.js"></script>-->
+    <!--<link href="~/Scripts/bootstrap-3.2.0-dist/css/bootstrap.min.css" rel="stylesheet" />-->
+    <!--<script src="~/Scripts/fillform.js"></script>-->
+    <title>Index</title>
+</head>
+<body>
+<div class="container">
+    <form id="fm1" role="form" class="form-horizontal">
+        <h2 class="h2 text-center">运动员资料</h2>
+        <div class="form-group">
+            <label class="control-label col-sm-2">Id:</label>
+            <div class="col-sm-10">
+                <input type="text" name="Id" class="form-control" />
+            </div>
+        </div>
+        <div class="form-group">
+            <label class="control-label col-sm-2">Name</label>
+            <div class="col-sm-10">
+                <input type="text" name="Name" class="form-control" />
+            </div>
+        </div>
+        <div class="form-group">
+            <label class="control-label col-sm-2">Birthday</label>
+            <div class="col-sm-10">
+                <input type="text" name="Birthday" class="form-control" />
+            </div>
+        </div>
+        <div class="form-group">
+            <label class="control-label col-sm-2">Number</label>
+            <div class="col-sm-10">
+                <select id="sel1" class="form-control" name="Number">
+                    <option value="7" selected>7</option>
+                    <option value="8">8</option>
+                    <option value="9">9</option>
+                    <option value="10">10</option>
+                    <option value="11">11</option>
+                </select>
+            </div>
+        </div>
+        <div class="form-group">
+            <label class="control-label col-sm-2">Friends</label>
+            <div class="col-sm-10">
+                <input type="checkbox" class="checkbox-inline" name="Friends"  value="1">Saviola
+                <input type="checkbox" class="checkbox-inline" name="Friends"  value="2">Batistuta
+                <input type="checkbox" class="checkbox-inline" name="Friends"  value="3">Lopez
+                <input type="checkbox" class="checkbox-inline" name="Friends"  value="4">Veron
+            </div>
+        </div>
+        <div class="form-group">
+            <label class="control-label col-sm-2">Teammate</label>
+            <div class="col-sm-10">
+                <input type="checkbox" class="checkbox-inline" name="Teammate"  value="1">Van Nistelrooy
+                <input type="checkbox" class="checkbox-inline" name="Teammate"  value="2">Messi
+                <input type="checkbox" class="checkbox-inline" name="Teammate"  value="3">Veron
+                <input type="checkbox" class="checkbox-inline" name="Teammate" value="4">Nedved
+            </div>
+        </div>
+        <div class="form-group">
+            <label class="control-label col-sm-2">Position</label>
+            <div class="col-sm-10">
+                <input type="radio" class="radio-inline" name="Position" value="dc"  />后卫
+                <input type="radio" class="radio-inline" name="Position" value="mc"/>中场
+                <input type="radio" class="radio-inline" name="Position" value="fw"  />边锋
+                <input type="radio" class="radio-inline" name="Position" value="st" />射手
+            </div>
+        </div>
+        <div class="text-center">
+            <button type="button" class="btn btn-info col-sm-offset-2" id="btntest">确定</button>
+        </div>
+    </form>
+</div>
+<script src="https://cdn.bootcss.com/jquery/3.3.1/jquery.js"></script>
+<script>
+
+        var json = {
+            "Id": 100,
+            "Name": "Crespo",
+            "Birthday": "2014-08-19",
+            "Number": 9,
+            "Cotch": {"Id": 1, "Name": "me"},
+            "Friends": [{"value": 1, "Name": 1}, {"value": 3, "Name": 3}],
+            "Teammate": "3,4",
+            "Position": "st"
+        };
+        for (var key in json) {
+            console.log("name:" + key + " value:" + json[key]);
+        }
+
+        var fillForm = function ($form, json) {
+            var jsonObj = json;
+            if (typeof json === 'string') {
+                jsonObj = $.parseJSON(json);
+            }
+            //遍历json对象
+            for (var key in jsonObj) {
+                // 获取值类型
+                var objtype = jsonObjType(jsonObj[key]);
+
+                if (objtype === "array") {//如果是数组，一般都是数据库中多对多关系
+                    var obj1 = jsonObj[key];//obj1是个数组  obj1(2) [{…}, {…}]
+                    for (var arraykey in obj1) {
+                        var arrayobj = obj1[arraykey];//获取每个obj1数组对象arrayobj{…},{…}
+                        for (var smallkey in arrayobj) {//循环每个数组对象obj1的值 默认第一个的值为smallkey
+                            // setCkb(key, arrayobj[smallkey]);
+                            $("[name=" + key + "][value=" + arrayobj[smallkey] + "]").attr("checked", "checked");
+                            break;
+                        }
+                    }
+                } else if (objtype === "object") { //如果是对象，啥都不错，大多数情况下，会有 xxxId 这样的字段作为外键表的id
+
+                } else if (objtype === "string") { //如果是字符串
+                    var tagobjs = $("[name=" + key + "]", $form);//获取所有字符串类型
+                    if ($(tagobjs).attr("type") == "radio") {//如果是radio控件
+                        $.each(tagobjs, function (keyobj,value) {
+                            if ($(value).val() == jsonObj[key]) {//进来的key是radio的name
+                                value.checked = true;
+                            }
+                        });
+                        continue;
+                    }
+                    if ($(tagobjs).attr("type") == "checkbox") { //复选框
+                        var checkarray=jsonObj[key].split(',');
+                        $.each(checkarray,function (keyobj,value) {
+                            $("[name=" + key + "][value=" + value + "]").attr("checked", "checked");
+                        });
+                    }
+                    $("[name=" + key + "]", $form).val(jsonObj[key]);
+                } else { //其他的直接赋值
+                    $("[name=" + key + "]", $form).val(jsonObj[key]);
+                }
+
+            }
+        };
+
+        var setCkb = function (name, value) {
+            $("[name=" + name + "][value=" + value + "]").attr("checked", "checked"); // 不知为何找不到具体标签;
+        };
+        //复选框
+        var fillckb = function (name, json) {
+            var jsonObj = json;
+            if (typeof json === 'string') {
+                jsonObj = $.parseJSON(json);
+            }
+            var str = jsonObj[name];
+            if (typeof str === "string") {
+                var array = str.split(",");
+                $.each(array, function (key, value) {
+                    setCkb(name, value);
+                });
+            }
+        };
+        var jsonObjType = function (obj) {
+            if (typeof obj === "object") {
+                var teststr = JSON.stringify(obj);
+                if (teststr[0] == '{' && teststr[teststr.length - 1] == '}') return "class";
+                if (teststr[0] == '[' && teststr[teststr.length - 1] == ']') return "array";
+            }
+            return typeof obj;
+        };
+
+        $(function () {
+            $("#btntest").click(function () {
+                // $.post("/test2/getjsonstr", {}, function (data) {
+                // fillckb("Teammate", json);
+                fillForm($("#fm1"), json);
+                // });
+            });
+
+        });
+
+</script>
+</body>
+</html>

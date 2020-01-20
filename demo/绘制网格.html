@@ -1,0 +1,153 @@
+<!DOCTYPE html>
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>Index</title>
+    <style>
+        canvas {
+            border: 1px solid #ccc;
+        }
+    </style>
+</head>
+<body>
+<canvas width="600" height="400"></canvas>
+<script>
+    // var myCanvas=document.querySelector('canvas');
+    // var ctx=myCanvas.getContext('2d');
+    // var gridSize=10;
+    // var canvasHeight=ctx.canvas.height;
+    // var canvasWidth=ctx.canvas.width;
+    // var xLineTotal=Math.floor(canvasHeight);
+    // for (var i=0;i<xLineTotal;i++){
+    //     ctx.beginPath();
+    //     ctx.moveTo(0,i*gridSize-0.5);
+    //     ctx.lineTo(600,i*gridSize-0.5);
+    //     ctx.strokeStyle="#eee";
+    //     ctx.stroke();
+    // }
+    // var yLIneTotal=Math.floor(canvasWidth);
+    // for (var j=0;j<yLIneTotal;j++){
+    //     ctx.beginPath();
+    //     ctx.moveTo(j*gridSize-0.5,0);
+    //     ctx.lineTo(j*gridSize-0.5,400);
+    //     ctx.strokeStyle="#eee";
+    //     ctx.stroke();
+    // }
+    var LineChart=function (ctx) {
+        this.ctx=ctx||document.querySelector('canvas').getContext('2d');
+        this.canvasWidth=this.ctx.canvas.width;
+        this.canvasHeight=this.ctx.canvas.height;
+        this.gridSize=10;
+        this.space=20;
+        this.x0=this.space;
+        this.y0=this.canvasHeight-this.space;
+        this.arrowSize=10;
+        this.dottedSize=6;
+    };
+    LineChart.prototype.init=function (data) {
+      this.drawGrid();
+      this.drawAxis();
+      this.drawDotted(data);
+    };
+    LineChart.prototype.drawGrid=function () {
+        var xLineTotal=Math.floor(this.canvasHeight/this.gridSize);
+        for (var i=0;i<xLineTotal;i++){
+            this.ctx.beginPath();
+            this.ctx.moveTo(0,i*this.gridSize-0.5);
+            this.ctx.lineTo(this.canvasWidth,i*this.gridSize-0.50);
+            this.ctx.strokeStyle="#eee";
+            this.ctx.stroke();
+
+        }
+        var yLineTotal=Math.floor(this.canvasWidth/this.gridSize);
+        for (var j=0;j<yLineTotal;j++){
+            this.ctx.beginPath();
+            this.ctx.moveTo(j*this.gridSize-0.5,0);
+            this.ctx.lineTo(j*this.gridSize-0.50,this.canvasHeight);
+            this.ctx.strokeStyle="#eee";
+            this.ctx.stroke();
+        }
+    };
+    LineChart.prototype.drawAxis=function () {
+        this.ctx.beginPath();
+        this.ctx.strokeStyle = '#000';
+        this.ctx.moveTo(this.x0,this.y0);
+        this.ctx.lineTo(this.canvasWidth-this.space,this.y0);
+        this.ctx.lineTo(this.canvasWidth-this.space-this.arrowSize,this.y0-this.arrowSize/2);
+        this.ctx.lineTo(this.canvasWidth-this.space-this.arrowSize,this.y0+this.arrowSize/2);
+        this.ctx.lineTo(this.canvasWidth-this.space,this.y0);
+        this.ctx.stroke();
+        this.ctx.fill();
+
+        this.ctx.beginPath();
+        this.ctx.strokeStyle = '#000';
+        this.ctx.moveTo(this.x0,this.y0);
+        this.ctx.lineTo(this.x0,this.space);
+        this.ctx.lineTo(this.x0-this.arrowSize/2,this.space+this.arrowSize);
+        this.ctx.lineTo(this.x0+this.arrowSize/2,this.space+this.arrowSize);
+        this.ctx.lineTo(this.x0,this.space);
+        this.ctx.stroke();
+        this.ctx.fill();
+    };
+    LineChart.prototype.drawDotted=function(data){
+        var that=this;
+        /*记录当前坐标*/
+        var prevCanvasX = 0;
+        var prevCanvasY = 0;
+        data.forEach(function (item,i) {
+            /* x = 原点的坐标 + 数据的坐标 */
+            /* y = 原点的坐标 - 数据的坐标 */
+            var canvasX = that.x0 + item.x;
+            var canvasY = that.y0 - item.y;
+            that.ctx.beginPath();
+            that.ctx.moveTo(canvasX - that.dottedSize / 2, canvasY - that.dottedSize / 2);
+            that.ctx.lineTo(canvasX + that.dottedSize / 2, canvasY - that.dottedSize / 2);
+            that.ctx.lineTo(canvasX + that.dottedSize / 2, canvasY + that.dottedSize / 2);
+            that.ctx.lineTo(canvasX - that.dottedSize / 2, canvasY + that.dottedSize / 2);
+            that.ctx.closePath();
+            that.ctx.fill();
+            if(i == 0){
+                that.ctx.beginPath();
+                that.ctx.moveTo(that.x0,that.y0);
+                that.ctx.lineTo(canvasX,canvasY);
+                that.ctx.stroke();
+            }else{
+                /*上一个点*/
+                that.ctx.beginPath();
+                that.ctx.moveTo(prevCanvasX,prevCanvasY);
+                that.ctx.lineTo(canvasX,canvasY);
+                that.ctx.stroke();
+            }
+            /*记录当前的坐标，下一次要用*/
+            prevCanvasX = canvasX;
+            prevCanvasY = canvasY;
+        });
+    };
+    var data = [
+        {
+            x: 100,
+            y: 120
+        },
+        {
+            x: 200,
+            y: 160
+        },
+        {
+            x: 300,
+            y: 240
+        },
+        {
+            x: 400,
+            y: 120
+        },
+        {
+            x: 500,
+            y: 80
+        }
+    ];
+    var lineChart = new LineChart();
+    lineChart.init(data);
+</script>
+</body>
+</html>

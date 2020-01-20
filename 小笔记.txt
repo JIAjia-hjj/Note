@@ -1,0 +1,10 @@
+window.location.href = '你的跳转的目标地址';
+ json字符串----->json对象  JSON.parse(jsonStr);
+json对象------>json字符串 JSON.stringify()
+ <form> 标签的 enctype 属性
+
+
+
+js获取对象的属性个数
+Object.getOwnPropertyNames(obj).length  
+Object.keys(obj).length

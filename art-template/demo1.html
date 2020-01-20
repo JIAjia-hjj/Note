@@ -1,0 +1,128 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <script src="template-web.js"></script>
+</head>
+<body>
+    <!--<div id="content"></div>-->
+    <!--<script id="test" type="text/html">-->
+        <!--<h1>{{title}}</h1>-->
+    <!--</script>-->
+    <!--<script>-->
+        <!--var data = {-->
+            <!--title:"hello world"-->
+        <!--};-->
+        <!--var html = template("test",data);-->
+        <!--document.getElementById('content').innerHTML = html;-->
+    <!--</script>-->
+
+<!--条件-->
+    <!--<div id="app">-->
+    <!--</div>-->
+    <!--<script id="test" type="text/html">-->
+    <!--<div>-->
+        <!--{{if bok==22}}-->
+        <!--<h1>线上</h1>-->
+        <!--{{else if bok==33}}-->
+        <!--<h2>隐藏</h2>-->
+        <!--{{else}}-->
+        <!--<h3>走这里</h3>-->
+        <!--{{/if}}-->
+    <!--</div>-->
+    <!--</script>-->
+    <!--<script>-->
+    <!--var data = {-->
+        <!--"bok":33-->
+    <!--};-->
+    <!--var html = template('test',data);-->
+    <!--document.getElementById("app").innerHTML = html;-->
+    <!--</script>-->
+
+    <!--循环-->
+    <!--<div id="app">-->
+    <!--</div>-->
+    <!--<script id="test" type="text/html">-->
+        <!--{{if bok}}-->
+            <!--{{if list.length>=0}}-->
+                <!--{{each list}}-->
+                    <!--<p>{{$index}}:{{$value}}</p>-->
+                <!--{{/each}}-->
+            <!--{{/if}}-->
+        <!--{{/if}}-->
+    <!--</script>-->
+    <!--<script>-->
+        <!--var data = {-->
+            <!--"bok":true,-->
+            <!--list:["aa","bb","cc"]-->
+        <!--};-->
+        <!--var html = template('test',data);-->
+        <!--document.getElementById("app").innerHTML = html;-->
+    <!--</script>-->
+
+    <!--调用自定义方法-->
+     <!--<div id="app"></div>-->
+    <!--<script type="text/html" id="test">-->
+        <!--{{if c==100}}-->
+        <!--<ul>-->
+            <!--{{each person}}-->
+            <!--<li>姓名：{{$value.name}}-&#45;&#45;性别：{{if $value.sex==1}}"女"{{else if $value.sex==0}}"男"{{/if}}</li>-->
+            <!--{{/each}}-->
+        <!--</ul>-->
+        <!--{{/if}}-->
+    <!--</script>-->
+    <!--<script>-->
+        <!--var data = {-->
+            <!--c:100,-->
+            <!--person:[-->
+                <!--{name:"jack",age:18,sex:1},-->
+                <!--{name:"tom",age:19,sex:0},-->
+                <!--{name:"jerry",age:20,sex:0},-->
+                <!--{name:"kid",age:21,sex:1},-->
+                <!--{name:"jade",age:22,sex:0}-->
+            <!--]-->
+        <!--};-->
+        <!--//自定义函数-->
+        <!--var html = template("test",data);-->
+        <!--document.getElementById("app").innerHTML = html;-->
+    <!--</script>-->
+
+
+    <!--调用子模板-->
+    <div id="app"></div>
+    <script id="main" type="text/html">
+        <ul>
+            {{each list}}
+            <li>{{$value}}</li>
+            {{/each}}
+        </ul>
+    </script>
+    <script id="test" type="text/html">
+        <div>
+            <ul>
+                {{each person}}
+                <li>{{$value.name}}</li>
+                {{/each}}
+            </ul>
+            {{include 'main' a}}
+        </div>
+    </script>
+    <script>
+        var data = {
+            person:[
+                {name:"jack",age:18},
+                {name:"tom",age:19},
+                {name:"jerry",age:20},
+                {name:"kid",age:21},
+                {name:"jade",age:22}
+            ],
+            a:{
+                list:['文艺', '博客', '摄影', '电影', '民谣', '旅行', '吉他']
+            }
+        };
+        var html = template("test",data);
+        document.getElementById("app").innerHTML=html;
+    </script>
+</body>
+</html>

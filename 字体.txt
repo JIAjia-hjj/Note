@@ -1,0 +1,8 @@
+@font-face{
+     font-family: '字体名称随便起'; 
+     src: url('../font/字体名称.ttf') format('truetype')；
+}
+ 
+//html中的代码中加一个h1或者其他的，里面写你自己想要的特殊文字
+ 
+h1{font-family: "字体名称随便起";}

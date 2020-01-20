@@ -1,0 +1,3 @@
+file->setting->editor->code style  可以设置代码缩进几格
+file->setting->editor->live templates  可以设置模板    default选择html代码->apply->ok           
+ctrl+shift+r  替换
